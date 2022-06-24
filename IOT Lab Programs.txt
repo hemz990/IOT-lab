@@ -1,0 +1,275 @@
+-----------------------------------------------------------
+1)Temperature Sensor
+https://create.arduino.cc/projecthub/infoelectorials/project-003-arduino-lm35-temperature-sensor-project-0a43ba
+
+int val;
+int tempPin = 1;
+
+void setup()
+{
+  Serial.begin(9600);
+}
+void loop()
+{
+  val = analogRead(tempPin);
+  float mv = ( val/1024.0)*5000;
+  float cel = mv/10;
+  float farh = (cel*9)/5 + 32;
+  Serial.print("TEMPRATURE = ");
+  Serial.print(cel);
+  Serial.print("*C");
+  Serial.println();
+  delay(1000);
+/* uncomment this to get temperature in farenhite
+Serial.print("TEMPRATURE = ");
+Serial.print(farh);
+Serial.print("*F");
+Serial.println();
+*/
+}
+
+-----------------------------------------------------------
+2)Fire Sensor
+https://create.arduino.cc/projecthub/24Ishan/fire-sensor-4ad4de
+
+const int buzzerPin = 12;
+const int flamePin = 11;
+int Flame = HIGH;
+void setup() 
+{
+  pinMode(buzzerPin, OUTPUT);
+  pinMode(flamePin, INPUT);
+  Serial.begin(9600);
+}
+void loop() 
+{
+  Flame = digitalRead(flamePin);
+  if (Flame== LOW)
+  {
+    digitalWrite(buzzerPin, HIGH);
+    Serial.print(“FIRE!!!”);
+
+  }
+  else
+  {
+    Serial.print(“No Worries”);
+    digitalWrite(buzzerPin, LOW);  
+  }
+}
+
+-----------------------------------------------------------
+3)Humidity Sensor
+https://create.arduino.cc/projecthub/techno_z/dht11-temperature-humidity-sensor-98b03b
+
+#include <dht.h>
+
+
+#define dht_apin A0 // Analog Pin sensor is connected to
+ 
+dht DHT;
+ 
+void setup(){
+ 
+  Serial.begin(9600);
+  delay(500);//Delay to let system boot
+  Serial.println("DHT11 Humidity & temperature Sensor\n\n");
+  delay(1000);//Wait before accessing Sensor
+ 
+}//end "setup()"
+ 
+void loop(){
+  //Start of Program 
+ 
+    DHT.read11(dht_apin);
+    
+    Serial.print("Current humidity = ");
+    Serial.print(DHT.humidity);
+    Serial.print("%  ");
+    Serial.print("temperature = ");
+    Serial.print(DHT.temperature); 
+    Serial.println("C  ");
+    
+    delay(5000);//Wait 5 seconds before accessing sensor again.
+ 
+  //Fastest should be once every two seconds.
+ 
+}// end loop
+
+-----------------------------------------------------------
+4)Touch/Tap Sensor
+https://create.arduino.cc/projecthub/arcaegecengiz/how-to-use-a-touch-sensor-81b7f4
+
+void setup() {
+ pinMode(2, INPUT);
+ Serial.begin(9600);
+}
+void loop() {
+ if (digitalRead(2) == HIGH){
+	Serial.println("Sensor is touched");
+ 	delay(500);
+ }
+ else{
+	Serial.println("Sensor is not touched");
+ 	delay(500);
+ }
+}
+
+-----------------------------------------------------------
+5)Tracking Sensor
+https://www.electroniclinic.com/ky-033-line-tracking-sensor-arduino-circuit-and-programming/#:~:text=KY-033%20Line%20tracking%20sensor%20with%20arduino%3A%20KY-033%20Line,to%20do%20and%20it%E2%80%99s%20a%20pretty%20simple%20device.
+
+void setup() 
+{
+ Serial.begin(9600); // activates Serial Communication
+}
+
+void loop() 
+{
+ Serial.print(digitalRead(8)); // Line Tracking sensor is connected with pin 8 of the Arduino
+ delay(500);
+}
+
+-----------------------------------------------------------
+6)Mercury Tilt Switch Sensor, 7)Ball Switch Sensor
+https://www.electroniclinic.com/ky-017-mercury-tilt-sensor-switch-with-arduino-circuit-diagram-code/#:~:text=Interfacing%20the%20Tilt%20ball%20Switch%20sensor%20with%20the,sensor%20and%20that%E2%80%99s%20called%20a%20mercury%20tilt%20switch.
+
+void setup() {
+   Serial.begin(9600);
+    pinMode(3, INPUT);
+}
+void loop() {
+    if (digitalRead(3) == 1)
+    {
+        Serial.println("Tilted");
+    }
+    else
+    	Serial.println("Not tilted");
+    delay(1000);
+}
+
+-----------------------------------------------------------
+8)Button Sensor
+https://www.arduino.cc/en/Tutorial/BuiltInExamples/Button
+
+void setup() {
+Serial.begin(9600);
+pinMode(3,INPUT);
+}
+void loop() {
+   if (digitalRead(3)==1){
+  Serial.println(“Button pressed”);
+ }
+else {
+  Serial.println(“Button not pressed”);
+}
+delay(1000);
+}
+
+-----------------------------------------------------------
+9)RGB
+https://create.arduino.cc/projecthub/muhammad-aqib/arduino-rgb-led-tutorial-fc003e
+
+int red_light_pin= 11;
+int green_light_pin = 10;
+int blue_light_pin = 9;
+void setup() {
+  pinMode(red_light_pin, OUTPUT);
+  pinMode(green_light_pin, OUTPUT);
+  pinMode(blue_light_pin, OUTPUT);
+}
+void loop() {
+  RGB_color(255, 0, 0); // Red
+  delay(1000);
+  RGB_color(0, 255, 0); // Green
+  delay(1000);
+  RGB_color(0, 0, 255); // Blue
+  delay(1000);
+  RGB_color(255, 255, 125); // Raspberry
+  delay(1000);
+  RGB_color(0, 255, 255); // Cyan
+  delay(1000);
+  RGB_color(255, 0, 255); // Magenta
+  delay(1000);
+  RGB_color(255, 255, 0); // Yellow
+  delay(1000);
+  RGB_color(255, 255, 255); // White
+  delay(1000);
+}
+void RGB_color(int red_light_value, int green_light_value, int blue_light_value)
+ {
+  analogWrite(red_light_pin, red_light_value);
+  analogWrite(green_light_pin, green_light_value);
+  analogWrite(blue_light_pin, blue_light_value);
+}
+
+-----------------------------------------------------------
+10)7 Color LED
+https://create.arduino.cc/projecthub/SURYATEJA/work-with-7-color-leds-877778
+
+int neg =  13;    // +LED connected to digital pin 13
+int pos =  12;    // -LED connected to digital pin 12
+int crtl =  11;  // control coonected to digital pin 11
+
+// The setup() method runs once, when the sketch starts
+
+void setup()   {                
+  // initialize the digital pin as an output:
+  pinMode(neg, OUTPUT);
+  pinMode(pos, OUTPUT);
+  pinMode(crtl, OUTPUT);
+  digitalWrite(pos, HIGH);    // set the LED on
+  digitalWrite(neg, LOW);   // set the LED off
+  digitalWrite(crtl,LOW);  //ser the crtl off
+  delay(15000);                  // wait for 15 second
+}
+// the loop() method runs over and over again,
+// as long as the Arduino has power
+
+void loop()                     
+{
+digitalWrite(crtl, HIGH);
+delay(250);
+digitalWrite(crtl, LOW);
+delay(250);
+}
+
+-----------------------------------------------------------
+11)IR Receiver
+
+int pin=3;
+void setup() {
+ pinMode(pin, INPUT);
+ Serial.begin(9600);
+}
+void loop() {
+ if (digitalRead(pin) == 1){
+	Serial.println("IR detected");
+ 	delay(500);
+ }
+ else{
+	Serial.println("IR is not detected");
+ 	delay(500);
+ }
+}
+
+-----------------------------------------------------------
+12)Laser Emitter
+https://create.arduino.cc/projecthub/infoelectorials/project-007-arduino-ky-008-laser-module-project-a62c94
+
+int laserPin = 10;
+
+void setup ()
+{
+  pinMode(laserPin, OUTPUT);
+}
+
+void loop () {
+  digitalWrite(laserPin, HIGH);
+  delay(100);
+  digitalWrite(laserPin, LOW);
+  delay(100);
+}
+-----------------------------------------------------------
+-----------------------------------------------------------
+-----------------------------------------------------------
+
